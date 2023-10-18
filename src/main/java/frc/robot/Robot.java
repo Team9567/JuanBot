@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive.arcadeDrive;
 import com.revrobotics.RelativeEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 
 //import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import com.revrobotics.CANSparkMax;
@@ -55,6 +57,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+    SmartDashboard.putNumber("Left Drive Encoder", m_leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Drive Encoder", m_rightEncoder.getPosition());
+    SmartDashboard.putNumber("Left Drive Encoder Speed", m_leftEncoder.getVelocity());
+    SmartDashboard.putNumber("Right Drive Encoder Speed", m_rightEncoder.getVelocity());
     // Drive for 2 seconds
     if (m_timer.get() < 5.0) {
       // Drive forwards half speed, make sure to turn input squaring off
