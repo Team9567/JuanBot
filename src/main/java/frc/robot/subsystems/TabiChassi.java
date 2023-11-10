@@ -8,10 +8,10 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TabiChassi extends SubsystemBase {
-    public CANSparkMax leftCanSparkMax = new CANSparkMax(1, MotorType.kBrushless);
-    public CANSparkMax rightCanSparkMax = new CANSparkMax(4, MotorType.kBrushless);
-    public CANSparkMax leftFollowerCanSparkMax = new CANSparkMax(2, MotorType.kBrushless);
-    public CANSparkMax rightFollowerCanSparkMax = new CANSparkMax(5, MotorType.kBrushless);
+    public CANSparkMax leftCanSparkMax = new CANSparkMax(6, MotorType.kBrushless);
+    public CANSparkMax rightCanSparkMax = new CANSparkMax(8, MotorType.kBrushless);
+    public CANSparkMax leftFollowerCanSparkMax = new CANSparkMax(5, MotorType.kBrushless);
+    public CANSparkMax rightFollowerCanSparkMax = new CANSparkMax(7, MotorType.kBrushless);
     public DifferentialDrive drivetrain = new DifferentialDrive(leftCanSparkMax, rightCanSparkMax);
     public RelativeEncoder m_leftEncoder = leftCanSparkMax.getEncoder();
     public RelativeEncoder m_rightEncoder = rightCanSparkMax.getEncoder();
