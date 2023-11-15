@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive.arcadeDrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -22,6 +23,12 @@ public class Robot extends TimedRobot {
   private RobotContainer robotContainer;
   //private final XboxController m_controller = new XboxController(0);
   //Joystick exampleJoystick = new Joystick(0);
+  
+  @Override
+  public void robotPeriodic() {
+
+    CommandScheduler.getInstance().run();
+  }
 
 
 
