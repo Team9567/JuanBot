@@ -45,20 +45,28 @@ public class TabiChassi extends SubsystemBase {
         // 60.0); // RPM to m/s
 
         // configure followers
-        // leftFollowerCanSparkMax.follow(leftCanSparkMax);
-        // rightFollowerCanSparkMax.follow(rightCanSparkMax);
+        //leftFollowerCanSparkMax.follow(leftCanSparkMax);
+        //rightFollowerCanSparkMax.follow(rightCanSparkMax);
 
+    }
+
+    public double getEncoderDistance(){
+        var left = leftCanSparkMax.getEncoder().getPosition();
+        var right = rightCanSparkMax.getEncoder().getPosition();
+        var average = (right + left)/2;
+        return average;        
     }
 
     public void arcadeDrive(double power, double turn) {
         drivetrain.arcadeDrive(power, turn);
+        //drivetrain.arcadeDrive(power / 4, turn / 4);
     }
 
     public void periodic() {
-        SmartDashboard.putNumber("Chasis/leftLeader", leftCanSparkMax.getOutputCurrent());
-        SmartDashboard.putNumber("Chasis/rightLeader", rightCanSparkMax.getOutputCurrent());
-        SmartDashboard.putNumber("Chasis/leftFollower", leftFollowerCanSparkMax.getOutputCurrent());
-        SmartDashboard.putNumber("Chasis/rightFollower", rightFollowerCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/leftLeaderCurrent", leftCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/rightLeaderCurrent", rightCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/leftFollowerCurrent", leftFollowerCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/rightFollowerCurrent", rightFollowerCanSparkMax.getOutputCurrent());
 
         SmartDashboard.putNumber("Chasis/leftLeader", leftEncoder.getPosition());
         SmartDashboard.putNumber("Chasis/rightLeader", rightEncoder.getPosition());
@@ -66,3 +74,4 @@ public class TabiChassi extends SubsystemBase {
         SmartDashboard.putNumber("Chasis/rightFollower", rightFollowerEncoder.getPosition());
     }
 }
+     

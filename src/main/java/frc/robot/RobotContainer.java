@@ -34,11 +34,12 @@ public class RobotContainer {
             () -> {
               chassis.arcadeDrive(-driver.getRawAxis(1), driver.getRawAxis(2));
             }, chassis));
+
+      //attach drive distance to button A
   }
 
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-
     return new DriveDistanceCommand(chassis);
 
   }
