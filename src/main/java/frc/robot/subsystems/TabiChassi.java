@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class TabiChassi extends SubsystemBase {
+
     public CANSparkMax leftCanSparkMax = new CANSparkMax(5, MotorType.kBrushless);
     public CANSparkMax rightCanSparkMax = new CANSparkMax(8, MotorType.kBrushless);
     public CANSparkMax leftFollowerCanSparkMax = new CANSparkMax(6, MotorType.kBrushless);
