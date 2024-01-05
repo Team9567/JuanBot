@@ -18,18 +18,17 @@ public class TabiChassi extends SubsystemBase {
    //Gets the encoder distances
     public RelativeEncoder leftEncoder = leftCanSparkMax.getEncoder();
     public RelativeEncoder rightEncoder = rightCanSparkMax.getEncoder();
-    public RelativeEncoder leftFollowerEncoder = leftFollowerCanSparkMax.getEncoder();
-    public RelativeEncoder rightFollowerEncoder = rightFollowerCanSparkMax.getEncoder();
-
-    public TabiChassi() {
-        for (CANSparkMax m : new CANSparkMax[] { leftCanSparkMax, rightCanSparkMax, leftFollowerCanSparkMax,rightFollowerCanSparkMax }) {
-            m.restoreFactoryDefaults(false);
+    public TabiChassi(){
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
+        for(CANSparkMax m : new CANSparkMax []{leftCanSparkMax, rightCanSparkMax,leftFollowerCanSparkMax,rightFollowerCanSparkMax}){
             m.clearFaults();
-
+          
             //m.setIdleMode(IdleMode.kCoast);  // NO BRAKES!!!!!!
             m.setIdleMode(IdleMode.kBrake);  // BRAKES!!!
 
             m.setSmartCurrentLimit(240 / 4, 240 / 4);// 240 is sensible current limit to chassis.  12-7-23 NateO - Noticed /4 to limit current by 1/4 and slow robot down.
+
         }
         leftEncoder.setPosition(0);
         rightEncoder.setPosition(0);
@@ -81,8 +80,6 @@ public class TabiChassi extends SubsystemBase {
         // Positions from drive motors
         SmartDashboard.putNumber("Chassis/leftLeader", leftEncoder.getPosition());
         SmartDashboard.putNumber("Chassis/rightLeader", rightEncoder.getPosition());
-        SmartDashboard.putNumber("Chassis/leftFollower", leftFollowerEncoder.getPosition());
-        SmartDashboard.putNumber("Chassis/rightFollower", rightFollowerEncoder.getPosition());
     }
 }
      
