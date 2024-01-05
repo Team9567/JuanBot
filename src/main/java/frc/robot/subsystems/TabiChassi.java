@@ -14,36 +14,48 @@ public class TabiChassi extends SubsystemBase {
     public CANSparkMax leftFollowerCanSparkMax = new CANSparkMax(2, MotorType.kBrushless);
     public CANSparkMax rightFollowerCanSparkMax = new CANSparkMax(4, MotorType.kBrushless);
     public DifferentialDrive drivetrain = new DifferentialDrive(leftCanSparkMax, rightCanSparkMax);
-    public RelativeEncoder m_leftEncoder = leftCanSparkMax.getEncoder();
-    public RelativeEncoder m_rightEncoder = rightCanSparkMax.getEncoder();
+    public RelativeEncoder leftEncoder = leftCanSparkMax.getEncoder();
+    public RelativeEncoder rightEncoder = rightCanSparkMax.getEncoder();
     public TabiChassi(){
-        m_leftEncoder.setPosition(0);
-        m_rightEncoder.setPosition(0);
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
         for(CANSparkMax m : new CANSparkMax []{leftCanSparkMax, rightCanSparkMax,leftFollowerCanSparkMax,rightFollowerCanSparkMax}){
             m.setIdleMode(IdleMode.kBrake);
             m.setSmartCurrentLimit(240/4, 240/4);//240 is sensible current limit to chassis
             m.clearFaults();
         }
+        leftEncoder.setPosition(0);
+        rightEncoder.setPosition(0);
+
         leftCanSparkMax.setInverted(false);
         rightCanSparkMax.setInverted(true);
         leftFollowerCanSparkMax.setIdleMode(IdleMode.kCoast);
-        rightFollowerCanSparkMax.setIdleMode(IdleMode.kCoast);            
+        rightFollowerCanSparkMax.setIdleMode(IdleMode.kCoast);    
+
+        // leftEncoder.setPositionConversionFactor(TabiChassi.EncoderDistancePerPulse);
+        // leftEncoder.setVelocityConversionFactor(TabiChassi.EncoderDistancePerPulse /
+        // 60.0); // RPM to m/s
+        // rightEncoder.setPositionConversionFactor(TabiChassi.EncoderDistancePerPulse);
+        // rightEncoder.setVelocityConversionFactor(TabiChassi.EncoderDistancePerPulse /
+        // 60.0); // RPM to m/s
 
 
-
-    //leftEncoder.setPositionConversionFactor(Chassis.EncoderDistancePerPulse);
-    //leftEncoder.setVelocityConversionFactor(Chassis.EncoderDistancePerPulse / 60.0); // RPM to m/s
-    //rightEncoder.setPositionConversionFactor(Chassis.EncoderDistancePerPulse);
-    //rightEncoder.setVelocityConversionFactor(Chassis.EncoderDistancePerPulse / 60.0); // RPM to m/s
-
-    //configure followers
-    leftFollowerCanSparkMax.follow(leftCanSparkMax);
-    rightFollowerCanSparkMax.follow(rightCanSparkMax);
+        leftFollowerCanSparkMax.follow(leftCanSparkMax);
+        rightFollowerCanSparkMax.follow(rightCanSparkMax);
 
     }
 
     public void arcadeDrive(double power, double turn) {
-    drivetrain.arcadeDrive(power / 2  ,turn / 2 * -1);
+        drivetrain.arcadeDrive(power / 2  ,turn / 2 * -1);
     }
-    
+
+    public void periodic() {
+        SmartDashboard.putNumber("Chasis/leftLeader", leftCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/rightLeader", rightCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/leftFollower", leftFollowerCanSparkMax.getOutputCurrent());
+        SmartDashboard.putNumber("Chasis/rightFollower", rightFollowerCanSparkMax.getOutputCurrent());
+
+        SmartDashboard.putNumber("Chasis/leftLeader", leftEncoder.getPosition());
+        SmartDashboard.putNumber("Chasis/rightLeader", rightEncoder.getPosition());
+    }
 }
